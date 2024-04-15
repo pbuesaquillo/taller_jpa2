@@ -21,7 +21,7 @@ import lombok.Setter;
 public class Persona {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int idPersona;
+    private Integer idPersona;
 
     @Column(nullable = false, length = 30)
     private String tipoIdentificacion;
