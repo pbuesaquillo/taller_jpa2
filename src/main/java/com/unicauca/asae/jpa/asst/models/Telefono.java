@@ -20,7 +20,7 @@ public class Telefono {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idTelefono;
+    private Integer idTelefono;
 
     @Column(nullable = false, unique = false, length = 30)
     private String tipoTelefono;
@@ -28,7 +28,7 @@ public class Telefono {
     @Column(nullable = false, unique = true, length = 30)
     private String numero;
 
-    @OneToOne(cascade = {CascadeType.PERSIST})
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "idTelefono", referencedColumnName = "idTelefono")
     private Docente objDocente;
 
