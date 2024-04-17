@@ -6,9 +6,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "Departamentos")
+@Getter
+@Setter
+@AllArgsConstructor
 public class Departamento {
 
     @Id
@@ -21,6 +27,8 @@ public class Departamento {
     @Column(nullable = false, length = 30)
     private String descripcion;
 
-    
+    public Departamento() {
 
+    }
+    
 }
