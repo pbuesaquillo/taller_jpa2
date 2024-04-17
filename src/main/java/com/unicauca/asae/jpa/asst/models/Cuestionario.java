@@ -30,7 +30,7 @@ public class Cuestionario {
     @Column(nullable = false, length = 30)
     private String descripcion;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "objPregunta", cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "objCuestionario")
     private ArrayList<Pregunta> preguntas;
 
 
