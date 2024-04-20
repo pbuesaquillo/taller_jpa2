@@ -1,7 +1,8 @@
 package com.unicauca.asae.jpa.asst.models;
 
-import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -21,16 +22,16 @@ public class TipoPregunta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idPregunta;
+    private Integer idTipoPregunta;
 
-    @Column(nullable = false, length = 30)
+    @Column(nullable = false, length = 200)
     private String nombre;
 
-    @Column(nullable = false, length = 30)
+    @Column(nullable = false, length = 200)
     private String descripcion;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "objTipoPregunta")
-    private ArrayList<Pregunta> preguntas;
+    @OneToMany(mappedBy = "objTipoPregunta")
+    private List<Pregunta> preguntas;
 
     public TipoPregunta() {
 

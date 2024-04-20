@@ -1,6 +1,7 @@
 package com.unicauca.asae.jpa.asst.models;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -30,8 +31,8 @@ public class Cuestionario {
     @Column(nullable = false, length = 30)
     private String descripcion;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "objCuestionario")
-    private ArrayList<Pregunta> preguntas;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "objCuestionario", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<Pregunta> preguntas;
 
 
 }

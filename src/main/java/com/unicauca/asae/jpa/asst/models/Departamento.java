@@ -21,10 +21,10 @@ public class Departamento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idDepartamento;
 
-    @Column(nullable = false, length = 30,unique = true, name = "nombreDepto")
+    @Column(nullable = false, length = 100,unique = true, name = "nombreDepto")
     private String nombre;
 
-    @Column(nullable = false, length = 30)
+    @Column(nullable = false, length = 100)
     private String descripcion;
 
     public Departamento() {

@@ -15,12 +15,13 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "Docentes")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Docente extends Persona{
 
     @Column(nullable = false, length = 30)
@@ -34,22 +35,19 @@ public class Docente extends Persona{
     private Telefono objTelefono; 
 
 
-    @ManyToMany(fetch = FetchType.LAZY ,cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    @JoinTable(name = "Departamentos-Docentes",joinColumns =  @JoinColumn(name = "idDocente"), inverseJoinColumns = @JoinColumn(name = "idDepartamento"))
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "Departamentos-Docentes",joinColumns =  @JoinColumn(name = "idPersona"), inverseJoinColumns = @JoinColumn(name = "idDepartamento"))
     private List<Departamento> departamentos;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "objDocente")
-    private ArrayList<Respuesta> respuestas;
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL}, mappedBy = "objDocente")
+    private List<Respuesta> respuestas;
 
-    public Docente() {
-        super();
-    }
 
     public Docente(Integer idPersona, String tipoIdentificacion, String numeroIdentificacion, String nombres, String apellidos, String correo, String vinculacion) {
         super(idPersona, tipoIdentificacion, numeroIdentificacion, nombres, apellidos);
         this.correo=correo;
         this.vinculacion=vinculacion;
-        this.departamentos = new ArrayList<Departamento>();
+        this.departamentos = new ArrayList<>();
     }
 
 }

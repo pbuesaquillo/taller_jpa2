@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -35,7 +35,9 @@ public class Persona {
     @Column(unique = true, name = "apellidos",nullable = false , length = 30)
     private String apellidos;
 
-    public Persona(String nombre, String apellido){
+    public Persona(String tipoIdentificacion, String numeroIdentificacion, String nombre, String apellido){
+        this.tipoIdentificacion = tipoIdentificacion;
+        this.numeroIdentificacion = numeroIdentificacion;
         this.nombres = nombre;
         this.apellidos = apellido;
     }
