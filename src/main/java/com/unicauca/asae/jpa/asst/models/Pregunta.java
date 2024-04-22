@@ -42,7 +42,7 @@ public class Pregunta {
     @JoinColumn(name = "idcuestionario")
     private Cuestionario objCuestionario;
 
-    @OneToMany(mappedBy = "objPregunta")
+    @OneToMany(mappedBy = "objPregunta",fetch = FetchType.EAGER)
     private List<Respuesta> respuestas;
 
 }

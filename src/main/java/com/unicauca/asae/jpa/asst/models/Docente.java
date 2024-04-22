@@ -24,7 +24,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Docente extends Persona{
 
-    @Column(nullable = false, length = 30)
+    @Column(nullable = false, length = 100, unique = true)
     private String correo;
 
     @Column(nullable = false, length = 30)

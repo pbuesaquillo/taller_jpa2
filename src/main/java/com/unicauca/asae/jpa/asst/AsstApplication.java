@@ -66,8 +66,10 @@ public class AsstApplication implements CommandLineRunner{
 		//consultarTipoPregunta();
 		//almacenarDocente();
 		//almacenarRespuestas();
-		consultarDocente();
+		//consultarDocente();
 		//respuestas();
+		//consultarCuestionarios();
+		consultarCuestionarios2();
 		System.out.println("fin de la aplicacion");
 	}
 
@@ -82,6 +84,55 @@ public class AsstApplication implements CommandLineRunner{
 		for (Respuesta respuesta : respuestas) {
 			System.out.println("Id: "+respuesta.getIdRespuesta());
 			System.out.println("descripcion: "+respuesta.getDescripcion());
+		}
+	}
+	private void consultarCuestionarios2() {
+		Iterable<Cuestionario> cuestionarios = this.servicioBDCuestionario.findAll();
+		int i=0;
+
+		for (Cuestionario cuestionario : cuestionarios) {
+			System.out.println("Cuestionario #"+i+1);
+			System.out.println("Id: "+cuestionario.getIdCuestionario());
+			System.out.println("Descripción: "+cuestionario.getDescripcion());
+			System.out.println("Docente que respondió: "+cuestionario.getPreguntas().get(i).getRespuestas().get(i).getObjDocente().getNombres()+" "+cuestionario.getPreguntas().get(i).getRespuestas().get(i).getObjDocente().getApellidos());
+			System.out.println("\nPreguntas");
+			Iterable<Pregunta> preguntas = cuestionario.getPreguntas();
+
+			for (Pregunta pregunta : preguntas) {
+				System.out.println("	Id pregunta:"+pregunta.getIdPregunta());
+				System.out.println("	enunciado: "+pregunta.getEnunciado());
+				System.out.println("	Tipo de pregunta: "+pregunta.getObjTipoPregunta().getDescripcion());
+				System.out.println("\n\tRespuestas: ");
+				Iterable<Respuesta> respuestas = pregunta.getRespuestas();
+
+				for (Respuesta respuesta : respuestas) {
+					System.out.println("\t\tId: "+respuesta.getIdRespuesta());
+					System.out.println("\t\tDescripcion respuesta: "+respuesta.getDescripcion());
+				}
+				System.out.println("\n--------------------------------------------------------------");
+			}
+			i++;
+		}
+
+	}
+
+	private void consultarCuestionarios() {
+		Iterable<Cuestionario> cuestionarios = this.servicioBDCuestionario.findAll();
+
+		
+		System.out.println("Cuestionarios");
+		for (Cuestionario cuestionario : cuestionarios) {
+			System.out.println("id: "+cuestionario.getIdCuestionario());
+			System.out.println("Titulo: "+cuestionario.getTitulo());
+			System.out.println("Descripcion:"+cuestionario.getDescripcion());
+			System.out.println("\nPreguntas");
+			Iterable<Pregunta> prreguntas = cuestionario.getPreguntas();
+			for (Pregunta pregunta : prreguntas) {
+				System.out.println("Id pregunta:"+pregunta.getIdPregunta());
+				System.out.println("enunciado: "+pregunta.getEnunciado());
+				System.out.println("Tipo de pregunta: "+pregunta.getObjTipoPregunta().getDescripcion());
+				System.out.println("\n--------------------------------------------------------------");
+			}
 		}
 	}
 
@@ -209,12 +260,6 @@ public class AsstApplication implements CommandLineRunner{
 	private void almacenarRespuestas() {
 		Optional<Docente> objDocente = this.servicioBDDocente.findById(1);
 		List<Pregunta> preguntas = this.servicioBDCuestionario.findById(1).get().getPreguntas();
-		
-		//Hibernate.initialize(preguntas);
-		//if (preguntas != null) {
-    	//	preguntas.size(); // Inicializa la colección
-		//}
-		//List<Pregunta> preguntas = this.servicioBDCuestionario.findById(1).get().getPreguntas();
 		List<Respuesta> respuestas = new ArrayList<>();
 
 		Respuesta objRespuesta1 = new Respuesta();
@@ -247,8 +292,5 @@ public class AsstApplication implements CommandLineRunner{
 
 		this.servicioBDDocente.findById(1).get().setRespuestas(respuestas);
 		objDocente.get().setRespuestas(respuestas);
-		//servicioBDRespuesta.saveAll(respuestas);
-		
-		//servicioBDPersona.save(objDocente.get());
 	}
 }
