@@ -30,7 +30,7 @@ public class TipoPregunta {
     @Column(nullable = false, length = 200)
     private String descripcion;
 
-    @OneToMany(mappedBy = "objTipoPregunta")
+    @OneToMany(mappedBy = "objTipoPregunta", fetch = FetchType.EAGER)
     private List<Pregunta> preguntas;
 
     public TipoPregunta() {
