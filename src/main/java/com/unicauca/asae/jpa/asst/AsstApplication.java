@@ -2,11 +2,6 @@ package com.unicauca.asae.jpa.asst;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
-import javax.print.Doc;
-
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -22,9 +17,6 @@ import com.unicauca.asae.jpa.asst.models.TipoPregunta;
 import com.unicauca.asae.jpa.asst.repositories.CuestionarioRepository;
 import com.unicauca.asae.jpa.asst.repositories.DepartamentoRepository;
 import com.unicauca.asae.jpa.asst.repositories.DocenteRepository;
-import com.unicauca.asae.jpa.asst.repositories.PersonaRepository;
-import com.unicauca.asae.jpa.asst.repositories.PreguntaRepository;
-import com.unicauca.asae.jpa.asst.repositories.RespuestaRepository;
 import com.unicauca.asae.jpa.asst.repositories.TipoPreguntaRepository;
 
 @SpringBootApplication
@@ -41,12 +33,6 @@ public class AsstApplication implements CommandLineRunner{
 
 	@Autowired
 	private DocenteRepository servicioBDDocente;
-
-	@Autowired
-	private PersonaRepository servicioBDPersona;
-
-	@Autowired
-	private RespuestaRepository servicioBDRespuesta;
 
 	public static void main(String[] args) {
 		SpringApplication.run(AsstApplication.class, args);
