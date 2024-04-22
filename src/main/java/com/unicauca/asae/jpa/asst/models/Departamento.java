@@ -1,5 +1,7 @@
 package com.unicauca.asae.jpa.asst.models;
 
+import org.hibernate.mapping.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -28,7 +28,7 @@ public class Telefono {
     @Column(nullable = false, unique = true, length = 30)
     private String numero;
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToOne(cascade = {CascadeType.PERSIST})
     @JoinColumn(name = "idTelefono", referencedColumnName = "idTelefono")
     private Docente objDocente;
 
