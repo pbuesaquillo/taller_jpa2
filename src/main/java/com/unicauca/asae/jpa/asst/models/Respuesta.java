@@ -31,7 +31,7 @@ public class Respuesta {
     @JoinColumn(name = "idDocente", nullable = false)
     private Docente objDocente;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idPregunta", nullable = false)
     private Pregunta objPregunta;
 

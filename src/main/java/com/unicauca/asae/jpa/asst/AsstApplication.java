@@ -19,7 +19,11 @@ import com.unicauca.asae.jpa.asst.repositories.DepartamentoRepository;
 import com.unicauca.asae.jpa.asst.repositories.DocenteRepository;
 import com.unicauca.asae.jpa.asst.repositories.TipoPreguntaRepository;
 
+import jakarta.transaction.Transaction;
+import jakarta.transaction.Transactional;
+
 @SpringBootApplication
+@Transactional
 public class AsstApplication implements CommandLineRunner{
 
 	@Autowired
@@ -43,20 +47,23 @@ public class AsstApplication implements CommandLineRunner{
 		System.out.println("Inicio de la aplicacion");
 
 		//almacenarDepartamento();
-		//almacenarCuestionario();
-		//almacenarDepartamento();
 		//almacenarTipoPregunta();
-		//consultarTipoPregunta();
+
+		//almacenarCuestionario();
+		//almacenarCuestionario2();
+		
 		//almacenarDocente();
+
 		//almacenarRespuestas();
-		//consultarDocente();
-		//respuestas();
+		//almacenarRespuestas2();
+
 		//consultarCuestionarios();
 		consultarCuestionarios2();
 		System.out.println("fin de la aplicacion");
 	}
 
-	private void almacenarDepartamento() {
+	//readonly true or false
+	public void almacenarDepartamento() {
 		Departamento objDepartamento = new Departamento();
 		objDepartamento.setNombre("Departamento de sistemas");
 		objDepartamento.setDescripcion("FIET");
@@ -65,11 +72,16 @@ public class AsstApplication implements CommandLineRunner{
 		objDepartamento2.setNombre("Departamento de telematica");
 		objDepartamento2.setDescripcion("FIET");
 
+		Departamento objDepartamento3 = new Departamento();
+		objDepartamento3.setNombre("Departamento de electrónica");
+		objDepartamento3.setDescripcion("FIET");
+
 		this.servicioBDDepartamento.save(objDepartamento);
 		this.servicioBDDepartamento.save(objDepartamento2);
+		this.servicioBDDepartamento.save(objDepartamento3);
 	}
 
-	private void almacenarTipoPregunta() {
+	public void almacenarTipoPregunta() {
 		TipoPregunta tp1 = new TipoPregunta();
 		tp1.setNombre("Seleccion multiple");
 		tp1.setDescripcion("Preguntas de seleccion multiple");
@@ -84,7 +96,7 @@ public class AsstApplication implements CommandLineRunner{
 
 
 	//Punto 1
-	private void almacenarCuestionario() {
+	public void almacenarCuestionario() {
 		Cuestionario cuestionario = new Cuestionario();
 		cuestionario.setDescripcion("Primer cuestionario almacenado");
 		cuestionario.setTitulo("Primero");
@@ -103,9 +115,6 @@ public class AsstApplication implements CommandLineRunner{
 		pregunta2.setObjTipoPregunta(this.servicioBDTipoPregunta.findById(1).get());
 		preguntasTipo1.add(pregunta2);
 
-		//this.servicioBDTipoPregunta.findById(1).get().setPreguntas(preguntasTipo1);
-
-		
 		pregunta1.setObjCuestionario(cuestionario);
 		pregunta2.setObjCuestionario(cuestionario);
 		
@@ -122,8 +131,53 @@ public class AsstApplication implements CommandLineRunner{
 		pregunta4.setObjTipoPregunta(this.servicioBDTipoPregunta.findById(2).get());
 		preguntasTipo2.add(pregunta4);
 
-		//this.servicioBDTipoPregunta.findById(2).get().setPreguntas(preguntasTipo2);
+		pregunta3.setObjCuestionario(cuestionario);
+		pregunta4.setObjCuestionario(cuestionario);
+
+		List<Pregunta> todasLasPreguntas = new ArrayList<>();
+		todasLasPreguntas.addAll(preguntasTipo1);//seleccion multiple
+		todasLasPreguntas.addAll(preguntasTipo2);//abiertas
+
+		cuestionario.setPreguntas(todasLasPreguntas);
+
+		servicioBDCuestionario.save(cuestionario);
+	}
+
+	public void almacenarCuestionario2() {
+		Cuestionario cuestionario = new Cuestionario();
+		cuestionario.setDescripcion("2do cuestionario almacenado");
+		cuestionario.setTitulo("Segundo cuestionario");
+
+		//preguntas de seleccion multiple
+		List<Pregunta> preguntasTipo1 = new ArrayList<>();
 		
+
+		Pregunta pregunta1 = new Pregunta();
+		pregunta1.setEnunciado("¿En cuál de las siguientes áreas cree que se debería invertir más para mejorar la seguridad?");
+		pregunta1.setObjTipoPregunta(this.servicioBDTipoPregunta.findById(1).get());
+		preguntasTipo1.add(pregunta1);
+
+		Pregunta pregunta2 = new Pregunta();
+		pregunta2.setEnunciado("¿Cuales de los siguientes equipos utliza con mayor frecuencia?");
+		pregunta2.setObjTipoPregunta(this.servicioBDTipoPregunta.findById(1).get());
+		preguntasTipo1.add(pregunta2);
+
+		pregunta1.setObjCuestionario(cuestionario);
+		pregunta2.setObjCuestionario(cuestionario);
+		
+		//preguntas abiertas
+		List<Pregunta> preguntasTipo2 = new ArrayList<>();
+
+		Pregunta pregunta3 = new Pregunta();
+		pregunta3.setEnunciado("¿Pregunta 3---?");
+		pregunta3.setObjTipoPregunta(this.servicioBDTipoPregunta.findById(2).get());
+		preguntasTipo2.add(pregunta3);
+
+		Pregunta pregunta4 = new Pregunta();
+		pregunta4.setEnunciado("pregunta 4---");
+		pregunta4.setObjTipoPregunta(this.servicioBDTipoPregunta.findById(2).get());
+		preguntasTipo2.add(pregunta4);
+
 		pregunta3.setObjCuestionario(cuestionario);
 		pregunta4.setObjCuestionario(cuestionario);
 
@@ -137,7 +191,7 @@ public class AsstApplication implements CommandLineRunner{
 	}
 
 	//Punto 2
-	private void almacenarDocente() {
+	public void almacenarDocente() {
 		Docente objDocente1 = new Docente();
 		Telefono objtTelefono1 = new Telefono();
 		objDocente1.setTipoIdentificacion("Cedula de Ciudadanía");
@@ -184,7 +238,7 @@ public class AsstApplication implements CommandLineRunner{
 	}
 
 	//Punto 3
-	private void almacenarRespuestas() {
+	public void almacenarRespuestas() {
 		Docente objDocente = this.servicioBDDocente.findById(1).get();
 		List<Pregunta> preguntas = this.servicioBDCuestionario.findById(1).get().getPreguntas();
 		List<Respuesta> respuestas = new ArrayList<>();
@@ -217,9 +271,42 @@ public class AsstApplication implements CommandLineRunner{
 		this.servicioBDDocente.save(objDocente);
 	}
 
+	public void almacenarRespuestas2() {
+		Docente objDocente = this.servicioBDDocente.findById(2).get();
+		List<Pregunta> preguntas = this.servicioBDCuestionario.findById(2).get().getPreguntas();
+		List<Respuesta> respuestas = new ArrayList<>();
+
+		Respuesta objRespuesta1 = new Respuesta();
+		objRespuesta1.setDescripcion("a) respuesta 1");
+		objRespuesta1.setObjDocente(objDocente);
+		objRespuesta1.setObjPregunta(preguntas.get(0));
+		respuestas.add(objRespuesta1);
+
+		Respuesta ojbRespuesta2 = new Respuesta();
+		ojbRespuesta2.setDescripcion("A) respuesta 2");
+		ojbRespuesta2.setObjDocente(objDocente);
+		ojbRespuesta2.setObjPregunta(preguntas.get(1));
+		respuestas.add(ojbRespuesta2);
+
+		Respuesta objRespuesta3 = new Respuesta();
+		objRespuesta3.setDescripcion("respuesta 3");
+		objRespuesta3.setObjDocente(objDocente);
+		objRespuesta3.setObjPregunta(preguntas.get(2));
+		respuestas.add(objRespuesta3);
+
+		Respuesta objRespuesta4 = new Respuesta();
+		objRespuesta4.setDescripcion("4");
+		objRespuesta4.setObjDocente(objDocente);
+		objRespuesta4.setObjPregunta(preguntas.get(3));
+		respuestas.add(objRespuesta4);
+
+		objDocente.setRespuestas(respuestas);
+		this.servicioBDDocente.save(objDocente);
+	}
+
 
 	//Punto 4
-	private void consultarCuestionarios() {
+	public void consultarCuestionarios() {
 		Iterable<Cuestionario> cuestionarios = this.servicioBDCuestionario.findAll();
 
 		
@@ -240,15 +327,15 @@ public class AsstApplication implements CommandLineRunner{
 	}
 
 	//Punto 5
-	private void consultarCuestionarios2() {
+	public void consultarCuestionarios2() {
 		Iterable<Cuestionario> cuestionarios = this.servicioBDCuestionario.findAll();
 		int i=0;
 
 		for (Cuestionario cuestionario : cuestionarios) {
-			System.out.println("Cuestionario #"+i+1);
+			System.out.println("Cuestionario #"+(i+1));
 			System.out.println("Id: "+cuestionario.getIdCuestionario());
 			System.out.println("Descripción: "+cuestionario.getDescripcion());
-			System.out.println("Docente que respondió: "+cuestionario.getPreguntas().get(i).getRespuestas().get(i).getObjDocente().getNombres()+" "+cuestionario.getPreguntas().get(i).getRespuestas().get(i).getObjDocente().getApellidos());
+			System.out.println("Docente que respondió: "+cuestionario.getPreguntas().get(i).getRespuestas().get(0).getObjDocente().getNombres()+" "+cuestionario.getPreguntas().get(i).getRespuestas().get(0).getObjDocente().getApellidos());
 			System.out.println("\nPreguntas");
 			Iterable<Pregunta> preguntas = cuestionario.getPreguntas();
 
