@@ -34,7 +34,7 @@ public class Pregunta {
     @Column(nullable = false, length = 250)
     private String enunciado;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idtipopregunta")
     private TipoPregunta objTipoPregunta;
 
@@ -42,7 +42,7 @@ public class Pregunta {
     @JoinColumn(name = "idcuestionario")
     private Cuestionario objCuestionario;
 
-    @OneToMany(mappedBy = "objPregunta",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "objPregunta")
     private List<Respuesta> respuestas;
 
 }

@@ -26,13 +26,13 @@ public class Persona {
     @Column(nullable = false, length = 30)
     private String tipoIdentificacion;
 
-    @Column(nullable = false, length = 30)
+    @Column(nullable = false, length = 30, unique = true)
     private String numeroIdentificacion;
 
-    @Column(unique = true, name = "nombres",nullable = false , length = 30)
+    @Column(name = "nombres",nullable = false , length = 30)
     private String nombres;
 
-    @Column(unique = true, name = "apellidos",nullable = false , length = 30)
+    @Column(name = "apellidos",nullable = false , length = 30)
     private String apellidos;
 
     public Persona(String tipoIdentificacion, String numeroIdentificacion, String nombre, String apellido){
