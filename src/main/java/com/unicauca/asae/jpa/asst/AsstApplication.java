@@ -19,7 +19,6 @@ import com.unicauca.asae.jpa.asst.repositories.DepartamentoRepository;
 import com.unicauca.asae.jpa.asst.repositories.DocenteRepository;
 import com.unicauca.asae.jpa.asst.repositories.TipoPreguntaRepository;
 
-import jakarta.transaction.Transaction;
 import jakarta.transaction.Transactional;
 
 @SpringBootApplication

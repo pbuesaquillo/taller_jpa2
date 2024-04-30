@@ -1,9 +1,7 @@
 package com.unicauca.asae.jpa.asst.models;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -42,7 +40,7 @@ public class Pregunta {
     @JoinColumn(name = "idcuestionario")
     private Cuestionario objCuestionario;
 
-    @OneToMany(mappedBy = "objPregunta")
+    @OneToMany(mappedBy = "objPregunta", fetch = FetchType.LAZY)
     private List<Respuesta> respuestas;
 
 }

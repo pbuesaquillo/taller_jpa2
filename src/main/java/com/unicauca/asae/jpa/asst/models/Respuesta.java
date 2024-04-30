@@ -1,6 +1,5 @@
 package com.unicauca.asae.jpa.asst.models;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -31,7 +30,7 @@ public class Respuesta {
     @JoinColumn(name = "idDocente", nullable = false)
     private Docente objDocente;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "idPregunta", nullable = false)
     private Pregunta objPregunta;
 

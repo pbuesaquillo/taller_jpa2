@@ -6,14 +6,13 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
-import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,6 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Docente extends Persona{
 
     @Column(nullable = false, length = 100, unique = true)
@@ -35,19 +35,14 @@ public class Docente extends Persona{
     private Telefono objTelefono; 
 
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "Departamentos-Docentes",joinColumns =  @JoinColumn(name = "idPersona"), inverseJoinColumns = @JoinColumn(name = "idDepartamento"))
+    @ManyToMany
+    @JoinTable(name = "Departamentos-Docentes",
+    joinColumns =  @JoinColumn(name = "idPersona"), 
+    inverseJoinColumns = @JoinColumn(name = "idDepartamento"))
     private List<Departamento> departamentos;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL}, mappedBy = "objDocente")
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "objDocente")
     private List<Respuesta> respuestas;
 
-
-    public Docente(Integer idPersona, String tipoIdentificacion, String numeroIdentificacion, String nombres, String apellidos, String correo, String vinculacion) {
-        super(idPersona, tipoIdentificacion, numeroIdentificacion, nombres, apellidos);
-        this.correo=correo;
-        this.vinculacion=vinculacion;
-        this.departamentos = new ArrayList<>();
-    }
 
 }

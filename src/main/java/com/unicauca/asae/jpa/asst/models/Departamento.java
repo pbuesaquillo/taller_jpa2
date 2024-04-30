@@ -1,7 +1,5 @@
 package com.unicauca.asae.jpa.asst.models;
 
-import org.hibernate.mapping.List;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,7 +21,7 @@ public class Departamento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idDepartamento;
 
-    @Column(nullable = false, length = 100,unique = true, name = "nombreDepto")
+    @Column(nullable = false, length = 100,unique = true, name = "nombreDep")
     private String nombre;
 
     @Column(nullable = false, length = 100)
